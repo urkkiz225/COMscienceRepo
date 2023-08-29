@@ -9,8 +9,18 @@
         <module name="COMtasks" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="18" />
+  </component>
+  <component name="EclipseCompilerSettings">
+    <option name="ADDITIONAL_OPTIONS_STRING" value="-parameters" />
+  </component>
+  <component name="GreclipseSettings">
+    <option name="cmdLineParams" value="-parameters" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_STRING" value="-parameters" />
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="COMtasks" options="" />
+    </option>
   </component>
 </project>
