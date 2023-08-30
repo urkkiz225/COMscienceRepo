@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class COMtasks{
@@ -60,10 +61,27 @@ public class COMtasks{
         return n;
     }
 
-    public static void Test(int[] argz){
-        for (int ignored:
+    public static void Test(Object[] argz){
+        for (Object ignored:
              argz) {
-            System.out.println(argz+", bruh");
+            ignored=new int[]{4,5,3,1,2,3,4,2,3,4,2,4,3,4,1,2,3,4,3,2,4,3,4,2,4,5,3,1,2,3,4,2,3,4,2,4,3,4,1,2,3,4,3,2,4,3,4,2,4,5,3,1,2,3,4,2,3,4,2,4,3,4,1,2,3,4,3,2,4,3,4,2,4,5,3,1,2,3,4,2,3,4,2,4,3,4,1,2,3,4,3,2,4,3,4,2,4,5,3,1,2,3,4,2,3,4,2,4,3,4,1,2,3,4,3,2,4,3,4,2,4,5,3,1,2,3,4,2,3,4,2,4,3,4,1,2,3,4,3,2,4,3,4,2,4,5,3,1,2,3,4,2,3,4,2,4,3,4,1,2,3,4,3,2,4,3,4,2,4,5,3,1,2,3,4,2,3,4,2,4,3,4,1,2,3,4,3,2,4,3,4,2};
+            System.out.println(Arrays.deepToString(argz)+", bruh");
         }
+    }
+    public void twoSum(int[] nums, int target) {
+        int indice1=0;
+        int indice2=0;
+        for(int i=0; i!=nums.length; i++)
+        {
+            for(int n=i+1; n!=nums.length; n++)
+            {
+                if(nums[i]+nums[n]==target)
+                {
+                    indice1=i;
+                    indice2=n;
+                }
+            }
+        }
+        System.out.println("Result of two sum: " + Arrays.toString(new int[]{indice1, indice2}) + ", Solution found: " + !Arrays.equals(new int[]{indice1, indice2},new int[]{0,0}));
     }
 }
