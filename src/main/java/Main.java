@@ -30,13 +30,15 @@ public class Main {
             try {
                     for (Method method : methods) {
                         try{
-                        if (method.getName().equals(methodIdentifier)) {
+                        if (method.getName().equalsIgnoreCase(methodIdentifier)) {
                             CurrentMethod = method;
                             break;
                         } else if (Arrays.stream(methods).toList().contains(methods[Integer.parseInt(methodIdentifier)])) {
                             CurrentMethod = methods[Integer.parseInt(methodIdentifier)];
                             break;
-                        }} catch (NumberFormatException ignored) {
+                        }else if(ynInput("Invalid index or no such method exists in the class " + targetClass + ", try again? y/n")) main(new String[]{});
+                        else System.exit(0);
+                        } catch (NumberFormatException ignored) {
                     }
                 }
 
@@ -55,14 +57,14 @@ public class Main {
                 }
             }
                 Executors.newSingleThreadExecutor().execute(() -> {
-                    long startTime=System.currentTimeMillis();
                     try {
+                        long startTime=System.currentTimeMillis();
                         CurrentMethod.invoke(targetClass.getDeclaredConstructor().newInstance(), params.toArray());
+                        System.out.print("\nSuccessfully invoked method (Runtime: "+(System.currentTimeMillis()-startTime)+"ms, total memory usage: "+(Math.round((float)Runtime.getRuntime().totalMemory()/100000)*0.1f)+"mb)\n");
                     } catch (IllegalAccessException | NoSuchMethodException | InstantiationException |
                              InvocationTargetException e) {
                         e.printStackTrace();
                     }
-                    System.out.print("\nSuccessfully invoked method (Runtime: "+(System.currentTimeMillis()-startTime)+"ms, total memory usage: "+(Math.round((float)Runtime.getRuntime().totalMemory()/100000)*0.1f)+"mb)\n");
                 });
             Thread.sleep(1000);
                 for (int i = 0; i < 8; i++) {
