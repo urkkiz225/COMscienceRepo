@@ -157,4 +157,26 @@ public class COMtasks{
                 "would be the count of non-zero elements in the array, the program outputs the average " +
                 "of the elements of the array (except if COUNT is 0, in which case it outputs 0)");
     }
+
+    public void ArrayHomeWork3(int[] VALUES){
+        System.out.println("First the algorithm assigns N a value of 1 and checks if the array is \n" +
+                "of size 5 and if the result is true (continues if this is true, outputs false if not). \n" +
+                "It then evaluates if N is smaller than N-1. (outputs false if it isn't, grows N by 1 and continues if it is). \n" +
+                "With the value of VALUES being {-3, 2,5,4} the algorithm returns false, because this array isn't sorted. (5 > 4)\n"  +
+                " The purpose of this algorithm is to check if it sorted");
+        //corresponding program
+        boolean result=true;
+        if(!(VALUES.length < 5)) {
+            for (int n = 1; n < 5&&result; n++) {
+                if((VALUES[n] > VALUES[n-1])){ result=false; break;}
+            }
+        }System.out.println(result?"The user-inputted array is sorted":"The user-inputted array isn't sorted");
+    }
+    public void ArrayHomework4(int[] ArrayToReverse){
+        int[] temp=new int[ArrayToReverse.length];
+        for (int i = ArrayToReverse.length; i>=0; i--) {
+            temp[ArrayToReverse.length-i]=ArrayToReverse[i];
+        }
+        System.out.println("Result of reversing array with elements " + Arrays.toString(ArrayToReverse)+" is: "+Arrays.toString(temp));
+    }
 }
