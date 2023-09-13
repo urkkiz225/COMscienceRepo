@@ -60,7 +60,7 @@ public class Main {
                     try {
                         long startTime=System.currentTimeMillis();
                         CurrentMethod.invoke(targetClass.getDeclaredConstructor().newInstance(), params.toArray());
-                        System.out.print("\nSuccessfully invoked method (Runtime: "+(System.currentTimeMillis()-startTime)+"ms, total memory usage: "+(Math.round((float)Runtime.getRuntime().totalMemory()/100000)*0.1f)+"mb)\n");
+                        System.out.print("\nSuccessfully invoked method (Runtime: "+(System.currentTimeMillis()-startTime)+"ms, total memory usage: "+(Math.round((float)(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/100000)*0.1f)+"mb from heap sized "+(Math.round((float)(Runtime.getRuntime().totalMemory()))/100000)*0.1f+"mb\n");
                     } catch (IllegalAccessException | NoSuchMethodException | InstantiationException |
                              InvocationTargetException e) {
                         e.printStackTrace();

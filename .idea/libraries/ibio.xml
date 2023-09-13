@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ibio">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../ibio/ibio.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

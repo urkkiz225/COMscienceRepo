@@ -1,10 +1,13 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import ibio.Helpers.*;
+
+import static ibio.Helpers.input;
+import static ibio.Helpers.inputInt;
 
 public class COMtasks{
-
-
+    public static Random random = new Random();
     public static void compare(int a, int b){
         System.out.println(a + "" + b);
         boolean isIt = true, really = false;
@@ -54,8 +57,7 @@ public class COMtasks{
         System.out.println("bruh!!1!");
     }
 
-    //util
-    public static Random random = new Random();
+
     protected static float SmallerThanS(float n, float S, float Step){
         for(; (n*(n+1)/2)<S; n=Math.round((n+Step)/Step)*Step) System.out.print("\rdoes not equate to smaller than S with n being " + n);
         return n;
@@ -167,16 +169,49 @@ public class COMtasks{
         //corresponding program
         boolean result=true;
         if(!(VALUES.length < 5)) {
-            for (int n = 1; n < 5&&result; n++) {
+            for (int n = 1; n < 5; n++) {
                 if((VALUES[n] > VALUES[n-1])){ result=false; break;}
             }
         }System.out.println(result?"The user-inputted array is sorted":"The user-inputted array isn't sorted");
     }
     public void ArrayHomework4(int[] ArrayToReverse){
-        int[] temp=new int[ArrayToReverse.length];
-        for (int i = ArrayToReverse.length; i>=0; i--) {
-            temp[ArrayToReverse.length-i]=ArrayToReverse[i];
+        int[] temp=ArrayToReverse;
+        for (int i = 0; i<temp.length/2; i++) {
+            int ind0=ArrayToReverse[temp.length-1-i];
+            int ind1=ArrayToReverse[i];
+            temp[temp.length-1-i]=ind1;
+            temp[i]=ind0;
         }
         System.out.println("Result of reversing array with elements " + Arrays.toString(ArrayToReverse)+" is: "+Arrays.toString(temp));
+
+    }
+    public static int[] SwapArrayElements(int[] arr, int swapInd1, int swapInd2){
+        try {
+            int temp = arr[swapInd1];
+            arr[swapInd1] = arr[swapInd2];
+            arr[swapInd2] = temp;
+        }catch (ArrayIndexOutOfBoundsException e){
+            e.printStackTrace();
+            System.out.println("Index "+swapInd1 +" or "+swapInd2+" is out of bounds for array arr: "+Arrays.toString(arr));
+        }
+        System.out.println("Result: "+Arrays.toString(arr));
+        return arr;
+    }
+    public static void reverse(int[] arr){
+        int temp=arr.length;
+        for (int i = 0; i < temp/2; i++) {
+            SwapArrayElements(arr, i, temp-i);
+        }
+        System.out.println("Swapped array: "+Arrays.toString(arr));
+    }
+    public static void CalculatePI(int iterations) throws InterruptedException {
+        int hits=0;
+        for (int i = 0; i < iterations; i++) {
+            float x=random.nextFloat(0,8);
+            float y=random.nextFloat(0,8);
+            System.out.print(((float)(i*100)/(float)(iterations))+"%...\r");
+            if(x*x+y*y<=64) hits++;
+        }float result=4*(((float)hits/(float)iterations));
+        System.out.println("Approximation: " + result + " ("+(1-(Math.abs(Math.PI-result)))*100+"% accurate)");
     }
 }
