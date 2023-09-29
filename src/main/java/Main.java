@@ -6,12 +6,14 @@ import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.concurrent.Executors;
 
 public class Main {
+    static String[] test = new String[1];
     public static Method CurrentMethod;
 
     public static void main(String[] args) {
+        System.out.println(Arrays.toString(args));
+        test=args;
         Method[] methods = COMtasks.class.getDeclaredMethods();
         ArrayList<String> methodNames = new ArrayList<>();
         for (Method method : methods) {
@@ -25,6 +27,7 @@ public class Main {
     }
 
     public static void executeMethodByName(Class<?> targetClass, String methodIdentifier) {
+        System.out.println(Arrays.toString(test));
         Method[] methods = targetClass.getDeclaredMethods();
         ArrayList<Object> params = new ArrayList<>();
             try {
@@ -36,14 +39,14 @@ public class Main {
                         } else if (Arrays.stream(methods).toList().contains(methods[Integer.parseInt(methodIdentifier)])) {
                             CurrentMethod = methods[Integer.parseInt(methodIdentifier)];
                             break;
-                        }else if(ynInput("Invalid index or no such method exists in the class " + targetClass + ", try again? y/n")) main(new String[]{});
+                        }else if(ynInput("Invalid index or no such method exists in the class " + targetClass + ", try again? y/n")) main(test);
                         else System.exit(0);
                         } catch (NumberFormatException ignored) {
                     }
                 }
 
             } catch (NumberFormatException e) {
-                if(ynInput("Invalid index or no such method exists in the class " + targetClass + ", try again? y/n")) main(new String[]{});
+                if(ynInput("Invalid index or no such method exists in the class " + targetClass + ", try again? y/n")) main(test);
                 else System.exit(0);
             }
             try {
@@ -53,42 +56,41 @@ public class Main {
                             (CurrentMethod.getParameterTypes()[params.size()].getTypeName()) + " and with a name of:" + (CurrentMethod.getParameters()[params.size()].getName())), CurrentMethod.getParameterTypes()[params.size()]));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    main(new String[]{});
+                    main(test);
                 }
             }
-                Executors.newSingleThreadExecutor().execute(() -> {
-                    try {
-                        long startTime=System.currentTimeMillis();
-                        CurrentMethod.invoke(targetClass.getDeclaredConstructor().newInstance(), params.toArray());
-                        System.out.print("\nSuccessfully invoked method (Runtime: "+(System.currentTimeMillis()-startTime)+"ms, total memory usage: "+(Math.round((float)(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/100000)*0.1f)+"mb from heap sized "+(Math.round((float)(Runtime.getRuntime().totalMemory()))/100000)*0.1f+"mb\n");
-                    } catch (IllegalAccessException | NoSuchMethodException | InstantiationException |
-                             InvocationTargetException e) {
-                        e.printStackTrace();
-                    }
-                });
+            try {
+                long startTime=System.currentTimeMillis();
+                CurrentMethod.invoke(targetClass.getDeclaredConstructor().newInstance(), params.toArray());
+                System.out.print("\nSuccessfully invoked method (Runtime: "+(System.currentTimeMillis()-startTime)+"ms, total memory usage: "+(Math.round((float)(Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/100000)*0.1f)+"mb from heap sized "+(Math.round((float)(Runtime.getRuntime().totalMemory()))/100000)*0.1f+"mb\n");
+            } catch (IllegalAccessException | NoSuchMethodException | InstantiationException |
+                     InvocationTargetException e) {
+                e.printStackTrace();
+            }
             Thread.sleep(1000);
                 for (int i = 0; i < 8; i++) {
                     System.out.print("\rContinuing in "+(8-i)+"...");
                     Thread.sleep(1000);
                 }System.out.print("\r");
-            main(new String[]{});
+            main(test);
         } catch (NullPointerException e) {
             ynInput("No such method exists in the class " + targetClass + ", try again? y/n");
             e.printStackTrace();
         } catch (Exception e) {
             System.out.println("Something went wrong!" + e);
-            main(new String[]{});
+            main(test);
         }
     }
 
 
     public static boolean ynInput(String message) {
+        System.out.println(Arrays.toString(test));
         System.out.println(message);
         String userInputS = userInput("Please type value and press enter");
         if (userInputS.equals("y") || userInputS.equals("yes")) {
             return true;
         } else if (userInputS.equals("n") || userInputS.equals("no")) {
-            main(new String[]{});
+            main(test);
         } else {
             System.out.println("Non-correct syntax, answer y/n|yes/no (case sensitive)");
             ynInput(message);
@@ -97,6 +99,7 @@ public class Main {
     }
 
     public static String userInput(String message) {
+        System.out.println(Arrays.toString(test));
         System.out.print(message + "\n");
         Scanner scanner = new Scanner(System.in);
         String nextLn = scanner.nextLine();

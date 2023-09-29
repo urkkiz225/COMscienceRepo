@@ -18,6 +18,7 @@
     <option name="cmdLineParams" value="-parameters" />
   </component>
   <component name="JavacSettings">
+    <option name="PREFER_TARGET_JDK_COMPILER" value="false" />
     <option name="ADDITIONAL_OPTIONS_STRING" value="-parameters" />
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="COMtasks" options="" />
